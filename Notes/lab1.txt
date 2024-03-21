@@ -1,0 +1,15 @@
+    # shapes drawing
+    # x = [100, 150, 200, 250]
+    # y = [50, 100, 150, 200]
+    # plt.plot(x,y,"r.", markersize = 10)
+
+
+    # *conversion colour* #
+    # Image1 = read_from_jpg("mandrill")
+    # Image2 = read_from_jpg("mandrill")
+    # IG = cv2.cvtColor(Image1, cv2.COLOR_BGR2GRAY)
+    # cv2.imshow("v1", IG)
+    # cv2.waitKey(0)
+    # IHSV = cv2.cvtColor(Image2, cv2.COLOR_BGR2HSV)
+    # cv2.imshow("v2", IHSV)
+    # cv2.waitKey(0)

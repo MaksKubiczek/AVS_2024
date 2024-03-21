@@ -1,0 +1,9 @@
+(T, thresh) = cv2.threshold(D,10,255,cv2.THRESH_BINARY)
+
+# D -- input array
+# 10 -- threshold value
+# 255 -- maximum value to use with the THRESH_BINARY and THRESH_BINARY_INV
+thresholding types
+# cv2.THRESH_BINARY -- thresholding type
+# T - our threshold value
+# thresh - output image
