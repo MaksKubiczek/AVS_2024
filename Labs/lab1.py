@@ -1,4 +1,4 @@
-from ImageProcessing.ImageOperation import ImageProcessing
+from ImageProcessing.ImageOperation import ImageOperation
 from utilities.FileManager import FileManager
 from utilities.Histrogram import Histrogram
 import matplotlib.pyplot as plt
@@ -11,11 +11,11 @@ class Lab1:
     def lab1():
         lena = FileManager.read_from_path_grey(r"resources\pictures\lena.png")
         mandrill = FileManager.read_from_path_grey(r"resources\pictures\mandrill.jpg")
-        add_result = ImageProcessing.images_addition(r"resources\pictures\mandrill.jpg", r"resources\pictures\lena.png")
-        sub_result = ImageProcessing.images_substraction(r"resources\pictures\mandrill.jpg", r"resources\pictures\lena.png")
-        mul_result = ImageProcessing.images_multiplication(r"resources\pictures\mandrill.jpg", r"resources\pictures\lena.png", 1)
-        linear_combination_result = ImageProcessing.images_linear_combination(r"resources\pictures\mandrill.jpg", 0.5, r"resources\pictures\lena.png", 0.5, 0)
-        dif_result = ImageProcessing.images_abs_diff(r"resources\pictures\mandrill.jpg", r"resources\pictures\lena.png")
+        add_result = ImageOperation.images_addition(r"resources\pictures\mandrill.jpg", r"resources\pictures\lena.png")
+        sub_result = ImageOperation.images_substraction(r"resources\pictures\mandrill.jpg", r"resources\pictures\lena.png")
+        mul_result = ImageOperation.images_multiplication(r"resources\pictures\mandrill.jpg", r"resources\pictures\lena.png", 1)
+        linear_combination_result = ImageOperation.images_linear_combination(r"resources\pictures\mandrill.jpg", 0.5, r"resources\pictures\lena.png", 0.5, 0)
+        dif_result = ImageOperation.images_abs_diff(r"resources\pictures\mandrill.jpg", r"resources\pictures\lena.png")
 
 
         # # Display results

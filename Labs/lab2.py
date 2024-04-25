@@ -1,4 +1,4 @@
-from ImageProcessing.ImageOperation import ImageProcessing
+from ImageProcessing.ImageOperation import ImageOperation
 from utilities.FileManager import FileManager
 import matplotlib.pyplot as plt
 import cv2
@@ -83,8 +83,8 @@ class Lab2:
             median_filtered = cv2.medianBlur(thresh, 5)
 
             #Morphological operations
-            erosion = ImageProcessing.erosion(median_filtered, Lab2.kernel, Lab2.erosion_iteration)
-            dilation = ImageProcessing.dilation(erosion, Lab2.kernel, Lab2.dilation_iteration)
+            erosion = ImageOperation.erosion(median_filtered, Lab2.kernel, Lab2.erosion_iteration)
+            dilation = ImageOperation.dilation(erosion, Lab2.kernel, Lab2.dilation_iteration)
 
             #Representating labels
             num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(dilation, connectivity=8)

@@ -28,7 +28,7 @@ Methods:
 '''
 
 
-class ImageProcessing:
+class ImageOperation:
     
     @staticmethod
     def rgb2gray(image):
@@ -78,7 +78,6 @@ class ImageProcessing:
         #result_float = image1_float*image2_float
         
         return result_float
-
 
     @staticmethod
     def images_linear_combination(image_path_1, weight_1, image_path_2, weight_2, gammma):
