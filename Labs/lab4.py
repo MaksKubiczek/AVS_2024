@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
 
 class Lab4():
     @staticmethod
@@ -63,11 +62,7 @@ class Lab4():
         # Convert HSV to RGB
         flow_image = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
-        # Display optical flow image
-        cv2.namedWindow('Optical Flow', cv2.WINDOW_NORMAL)
-        cv2.imshow('Optical Flow', flow_image)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        return flow_image
 
     @staticmethod
     def multiscale_block_method(image1, image2, max_scale=3):
@@ -88,9 +83,12 @@ class Lab4():
         dX = 3
         dY = 3
 
-        # Initialize flow matrices
+        # Initialize total flow matrices
         u_total = np.zeros_like(I_gray, dtype=np.float32)
         v_total = np.zeros_like(I_gray, dtype=np.float32)
+
+        # Initialize list to store flow images from different scales
+        flow_images = []
 
         # Iterate through scales
         for scale in range(max_scale - 1, -1, -1):
@@ -110,9 +108,32 @@ class Lab4():
                 u_total += u_scale
                 v_total += v_scale
 
-        # Visualize total optical flow
-        Lab4.vis_flow(u_total, v_total, I_gray.shape[::-1], "Optical Flow")
+            # Convert flow to polar coordinates
+            magnitude, angle = cv2.cartToPolar(u_scale, v_scale)
 
+            # Normalize magnitude to range 0-255
+            magnitude = cv2.normalize(magnitude, None, 0, 255, cv2.NORM_MINMAX)
+
+            # Convert angle to degrees
+            angle_degrees = angle * 90 / np.pi
+
+            # Create HSV image
+            hsv = np.zeros((I_scale.shape[0], I_scale.shape[1], 3), dtype=np.uint8)
+            hsv[..., 0] = angle_degrees
+            hsv[..., 1] = magnitude
+            hsv[..., 2] = 255
+
+            # Convert HSV to RGB
+            flow_image = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+
+            flow_images.append(flow_image)
+
+        # Resize flow images to original size
+        original_size_flow_images = []
+        for flow_image in flow_images:
+            original_size_flow_images.append(cv2.resize(flow_image, (I.shape[1], I.shape[0])))
+
+        return original_size_flow_images
 
     @staticmethod
     def block_method_for_scale(I, J, W2=3, dY=3, dX=3):
@@ -142,29 +163,16 @@ class Lab4():
         return u, v
 
     @staticmethod
-    def vis_flow(u, v, YX, name):
-        # Visualization of optical flow
-        flow_image = np.zeros((YX[0], YX[1], 3), dtype=np.uint8)
-
-        # Create grid of points to draw arrows
-        step = 10
-        for y in range(0, YX[0], step):
-            for x in range(0, YX[1], step):
-                pt1 = (x, y)
-                pt2 = (int(x + u[y, x]), int(y + v[y, x]))
-                cv2.arrowedLine(flow_image, pt1, pt2, (0, 0, 255), 1)
-
-        # Display image with flow vectors
-        cv2.imshow(name, flow_image)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
-        
-    @staticmethod
     def generate_pyramid(im, max_scale):
         # Generate pyramid of images
         images = [im]
         for k in range(1, max_scale):
             images.append(cv2.resize(images[k-1], (0, 0), fx=0.5, fy=0.5))
         return images
-    
 
+# Usage example
+flow_images = Lab4.multiscale_block_method("I.jpg", "J.jpg", max_scale=3)
+for idx, image in enumerate(flow_images):
+    cv2.imshow(f'Optical Flow Scale {idx}', image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()

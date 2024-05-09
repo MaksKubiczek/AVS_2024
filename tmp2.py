@@ -77,7 +77,7 @@ Q = np.zeros([4, 4])
     cv2.CALIB_ZERO_DISPARITY, (0, 0), 0, 0
 )
 
-# Initialize undistortion and rectification maps for left and right images
+ 
 map1_left, map2_left = cv2.fisheye.initUndistortRectifyMap(
     K_left, D_left, leftRectification,
     leftProjection, image_size, cv2.CV_16SC2

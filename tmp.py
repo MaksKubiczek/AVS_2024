@@ -59,7 +59,7 @@ for i in range (1 , number_of_images ):
         cv2 . imshow (" Corners ", img )
         cv2 . waitKey (5)
     else :
-        print (" Chessboard couldn ’t detected . Image pair : ", i)
+        print ("End of Sequence")
         continue
 
 N_OK = len ( objpoints )

@@ -18,7 +18,7 @@ def main() -> None:
     #     #lab2.set_step_value(2)
     #     # lab2.lab2()
     # Lab3.lab3()
-    # Lab4.block_method('I.jpg', 'J.jpg')
+    Lab4.block_method('I.jpg', 'J.jpg')
 
     Lab4.multiscale_block_method("I.jpg", "J.jpg")
     
